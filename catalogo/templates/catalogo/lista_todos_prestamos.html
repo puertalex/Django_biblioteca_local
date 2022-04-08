@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Todos los libros en prestamo</h1>
+
+    {% if peticioneslibro_list %}
+        <ul>
+
+        {% for peticion in peticioneslibro_list %} 
+        <li class="{% if peticion.es_retraso %}text-danger{% endif %}">
+            <a href="{% url 'libro_detail' peticion.libro.pk %}">{{peticion.libro.titulo}}</a> ({{ peticion.devolucion }}) {% if user.is_staff %}- {{ peticion.prestatario }}{% endif %} {% if perms.catalogo.can_mark_returned %}- <a href="{% url 'renovar-libro-bibliotecario' peticion.id %}">Renovar</a>  {% endif %}
+        </li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+      <p>No hay libros prestados.</p>
+    {% endif %}       
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Libros Prestados</h1>
+
+    {% if peticioneslibro_list %}
+    <ul>
+
+      {% for peticion in peticioneslibro_list %}
+      <li class="{% if peticion.es_retraso %}text-danger{% endif %}">
+        <a href="{% url 'libro_detail' peticion.libro.pk %}">{{peticion.libro.titulo}}</a> ({{ peticion.devolucion }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>No tienes libros en prestamo.</p>
+    {% endif %}
+{% endblock %}
