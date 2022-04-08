@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import matplotlib matplotlib.use('Agg')
 
 class Genero(models.Model):
     """
